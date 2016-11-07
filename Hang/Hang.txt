@@ -1,0 +1,82 @@
+import java.util.*;//import scanner
+public class HungMen {//main class
+	public static void main(String[] args) {//main method
+		
+		//create the words to be guessed
+		String[] words = {"fool", "stupid", "moron", "idiot", "dumbdumb"};
+		
+		//activate scanner
+		Scanner input = new Scanner(System.in);
+		
+		//create a varable for 'answer'
+		String answer;
+		
+		//greet player and begin game
+		System.out.println("Welcome to the game. Ready to get hung? ;)");
+		System.out.println();
+		
+		
+		do {
+			   int i = intRandom(0, words.length - 1);//assign 'int i' to intRandom method
+			   char[] word = words[i].toCharArray();//plug 'i' into the 'words' array, converts string into character array
+			   boolean[] mask = new boolean[word.length];
+			   int numberOfCorrectGuess = 0;//initialize '# of correct guesses' variable
+			   int numberOfMisses = 0;//initialize '# of misses' variable
+			   while (numberOfCorrectGuess != word.length) {
+			    System.out.print("Guess a letter: ");
+			 
+			    // Print out result
+			    for (int j = 0; j < word.length; j++) {
+			 
+			     if (mask[j])
+			      System.out.print(word[j]);
+			     else
+			      System.out.print("*");
+			 
+			    }
+			 
+			    System.out.print(">");
+			    char guess = input.next().charAt(0);
+			 
+			    //Check the guess
+			    boolean miss = true;
+			    boolean repeat = false;
+			 
+			    for (int j = 0; j < word.length; j++) {
+			     if (word[j] == guess) {
+			      if (mask[j] != true) {
+			       mask[j] = true;
+			       numberOfCorrectGuess++;
+			      } else {
+			       repeat = true;
+			       break;
+			      }
+			      miss = false;
+			     }
+			    }
+			 
+			    if (miss)
+			     numberOfMisses++;//add up player misses
+			    if (repeat)
+			    	//alert player of duplicate guess
+			     System.out.println("..you already entered " + guess + " -.-");
+			 
+			   }
+			   //signal a game win
+			   System.out.println("You got it! :D");
+			   System.out.println("The word is " + String.valueOf(word)
+			     + ". You were WRONG " + numberOfMisses + " times, you " + String.valueOf(word));
+			   //ask to play again
+			   System.out.print("Do you want to play again? Enter y or n>");
+			   answer = input.next();
+			  } while (answer.charAt(0) != 'n');
+				System.out.println("GAME OVER");
+			 
+			 }
+			 //method for use in program
+			 public static int intRandom(int lowerBound, int upperBound) {
+			  return (int) (lowerBound + Math.random()
+			    * (upperBound - lowerBound + 1));
+			 }
+
+}
