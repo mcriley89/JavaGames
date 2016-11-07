@@ -1,0 +1,93 @@
+import java.util.*;
+public class tictactoejj {
+
+	
+public static int row, col;
+
+public static Scanner scan = new Scanner(System.in);
+
+public static char [][] board = new char [3][3];
+
+public  static char turn = 'X';
+
+public static void main(String[] args) {
+		for (int i= 0; i< 3; i++) {
+			for (int j = 0 ; j < 3; j++){
+				board[i][j] = '_';
+			}
+		}
+		//call printboard
+		Play();
+}
+	
+
+public static void Play () {
+	//know if game is over
+	boolean playing = true;
+	PrintBoard();
+	while (playing){
+		System.out.println("Please enter a row and column");
+		row = scan.nextInt() -1;
+		col = scan.nextInt() -1;
+		board[row][col]= turn;
+		if (GameOver(row, col)){
+			playing = false;
+			System.out.println("Game Over !  Player" + turn + "wins");
+			System.out.println();
+			RileysContribution(); //contribution from Riley McCallay
+			
+		}
+		
+		PrintBoard();
+		//switching to other player
+		if (turn == 'X')
+			turn = 'O';
+		else
+			turn = 'X';
+		
+		
+	}
+}
+
+
+public static void PrintBoard() {
+	for (int i= 0; i < 3; i++){
+		System.out.println();
+		for (int j = 0; j < 3; j++){
+			if (j == 0) 
+				System.out.print(" | ");
+		System.out.print(board[i][j] + " | ");
+	}}
+	System.out.println();
+}
+
+
+public static boolean GameOver(int rmove, int cmove){
+	
+	
+	//check rank win
+	if (board[0][cmove] == board[1][cmove]
+			&& board[0][cmove] == board[2][cmove])
+		return true;
+	
+	
+	if (board[rmove][0] == board[rmove][1]
+			&& board[rmove][0] == board[rmove][2])
+		return true;
+	
+	// check column win
+	
+	if (board[0][0] == board[1][1] && board [0][0] ==board [2][2]
+			&& board[1][1] != '_')
+		
+	if (board[0][2] == board[1][1] && board [0][2] ==board [2][0]
+				&& board[1][1] != '_')
+		return true;
+	return false;
+}
+
+private static void RileysContribution(){
+	System.out.println("And Riley Helped! XD");
+}
+
+
